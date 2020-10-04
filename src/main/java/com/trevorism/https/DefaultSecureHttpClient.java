@@ -10,8 +10,9 @@ import java.util.Map;
 
 public class DefaultSecureHttpClient implements SecureHttpClient{
 
-    private final TokenInitializer tokenInitializer;
     private final HeadersHttpClient httpClient;
+    private final TokenInitializer tokenInitializer;
+
 
     public DefaultSecureHttpClient(){
         httpClient = new HeadersJsonHttpClient();

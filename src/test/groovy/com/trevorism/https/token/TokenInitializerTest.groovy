@@ -1,24 +1,20 @@
 package com.trevorism.https.token
 
-import com.trevorism.http.headers.HeadersJsonHttpClient
+import com.trevorism.http.headers.HeadersHttpClient
+import org.apache.http.client.methods.CloseableHttpResponse
+import org.apache.http.entity.StringEntity
 import org.junit.Test
 
 class TokenInitializerTest {
 
     @Test
     void testGetToken() {
-        TokenInitializer tokenInitializer = new TokenInitializer(new HeadersJsonHttpClient())
+        TokenInitializer tokenInitializer = new TokenInitializer([post: {url, data, map ->
+            return ([getEntity: { new StringEntity("token") }] as CloseableHttpResponse)
+        }] as HeadersHttpClient)
 
-        println tokenInitializer.token
-
-        Thread.sleep(2000)
-
-
-        println tokenInitializer.token
-
+        assert "token" == tokenInitializer.getToken()
 
     }
 
-    void testFetchToken() {
-    }
 }

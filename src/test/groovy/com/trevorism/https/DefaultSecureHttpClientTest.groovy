@@ -1,23 +1,15 @@
 package com.trevorism.https
 
+import com.trevorism.https.token.InvalidTokenCredentialsException
 import org.junit.Test
 
 class DefaultSecureHttpClientTest {
-    @Test
+
+    @Test(expected = InvalidTokenCredentialsException)
     void testGet() {
         DefaultSecureHttpClient defaultSecureHttpClient = new DefaultSecureHttpClient()
-        println defaultSecureHttpClient.get("auth.trevorism.com/user")
+        assert defaultSecureHttpClient
+        assert defaultSecureHttpClient.get("auth.trevorism.com/ping")
     }
 
-    void testPost() {
-    }
-
-    void testPut() {
-    }
-
-    void testDelete() {
-    }
-
-    void testCreateHeaderMap() {
-    }
 }
