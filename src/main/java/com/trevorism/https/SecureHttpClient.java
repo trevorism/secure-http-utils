@@ -1,6 +1,8 @@
 package com.trevorism.https;
 
 public interface SecureHttpClient {
+    String AUTHORIZATION = "Authorization";
+    String BEARER_ = "bearer ";
 
     /**
      * Performs an HTTP GET

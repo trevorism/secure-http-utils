@@ -67,7 +67,7 @@ public class DefaultSecureHttpClient implements SecureHttpClient{
         Map<String, String> headersMap = new HashMap<>();
         if(correlationId != null)
             headersMap.put(HeadersHttpClient.CORRELATION_ID_HEADER_KEY, correlationId);
-        headersMap.put("Authorization", "bearer " + token);
+        headersMap.put(AUTHORIZATION, BEARER_ + token);
         return headersMap;
     }
 }
