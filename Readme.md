@@ -5,7 +5,7 @@
 ![GitHub language count](https://img.shields.io/github/languages/count/trevorism/secure-http-utils)
 ![GitHub top language](https://img.shields.io/github/languages/top/trevorism/secure-http-utils)
  
-Latest Version: 1.0.0
+Latest Version: 0.5.0
  
 Simple java library to perform Secure HTTPS calls on Trevorism 
  
