@@ -27,7 +27,7 @@ repositories {
 
 dependencies {
     api 'com.trevorism:http-utils:1.1.0'
-    api 'com.trevorism:secure-utils:3.3.1'
+    api 'com.trevorism:secure-utils:3.4.0'
     implementation 'com.google.code.gson:gson:2.8.6'
     testImplementation 'org.codehaus.groovy:groovy-all:2.5.8'
     testImplementation 'junit:junit:4.12'
