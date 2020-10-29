@@ -9,10 +9,12 @@ import java.util.HashMap;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class TokenInitializer {
+public class ObtainTokenFromAuthService implements ObtainTokenStrategy{
 
-    public static final int FIFTEEN_MINUTES_MILLIS = 1000 * 60 * 15;
-    public static final String TOKEN_ENDPOINT = "https://auth.trevorism.com/token";
+    private static final int FIFTEEN_MINUTES_MILLIS = 1000 * 60 * 15;
+    private static final String TOKEN_ENDPOINT = "https://auth.trevorism.com/token";
+    private static final String CLIENT_ID = "clientId";
+    private static final String CLIENT_SECRET = "clientSecret";
 
     private final HeadersHttpClient httpClient;
     private final Timer timer;
@@ -21,11 +23,15 @@ public class TokenInitializer {
 
     private String token;
 
-    public TokenInitializer(HeadersHttpClient httpClient) {
+    public ObtainTokenFromAuthService(HeadersHttpClient httpClient) {
+        this(httpClient, DEFAULT_PROPERTIES_FILE_NAME);
+    }
+
+    public ObtainTokenFromAuthService(HeadersHttpClient httpClient, String propertiesFileName) {
         this.httpClient = httpClient;
         this.gson = new Gson();
         this.timer = new Timer("token", true);
-        this.propertiesProvider = new PropertiesProvider();
+        this.propertiesProvider = new PropertiesProvider(propertiesFileName);
     }
 
     public String getToken() {
@@ -37,8 +43,8 @@ public class TokenInitializer {
     }
 
     private String fetchToken() {
-        String clientId = propertiesProvider.getProperty("clientId");
-        String clientSecret = propertiesProvider.getProperty("clientSecret");
+        String clientId = propertiesProvider.getProperty(CLIENT_ID);
+        String clientSecret = propertiesProvider.getProperty(CLIENT_SECRET);
 
         TokenRequest tokenRequest = new TokenRequest(clientId, clientSecret);
 

@@ -3,7 +3,8 @@ package com.trevorism.https;
 import com.trevorism.http.headers.HeadersHttpClient;
 import com.trevorism.http.headers.HeadersJsonHttpClient;
 import com.trevorism.http.util.ResponseUtils;
-import com.trevorism.https.token.TokenInitializer;
+import com.trevorism.https.token.ObtainTokenFromAuthService;
+import com.trevorism.https.token.ObtainTokenStrategy;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -11,12 +12,16 @@ import java.util.Map;
 public class DefaultSecureHttpClient implements SecureHttpClient{
 
     private final HeadersHttpClient httpClient;
-    private final TokenInitializer tokenInitializer;
-
+    private final ObtainTokenStrategy obtainTokenStrategy;
 
     public DefaultSecureHttpClient(){
         httpClient = new HeadersJsonHttpClient();
-        tokenInitializer = new TokenInitializer(httpClient);
+        obtainTokenStrategy = new ObtainTokenFromAuthService(httpClient);
+    }
+
+    public DefaultSecureHttpClient(ObtainTokenStrategy strategy){
+        httpClient = new HeadersJsonHttpClient();
+        obtainTokenStrategy = strategy;
     }
 
     @Override
@@ -26,7 +31,7 @@ public class DefaultSecureHttpClient implements SecureHttpClient{
 
     @Override
     public String get(String url, String correlationId) {
-        Map<String,String> headersMap = createHeaderMap(correlationId, tokenInitializer.getToken());
+        Map<String,String> headersMap = createHeaderMap(correlationId, obtainTokenStrategy.getToken());
         return ResponseUtils.getEntity(httpClient.get(url, headersMap));
     }
 
@@ -37,7 +42,7 @@ public class DefaultSecureHttpClient implements SecureHttpClient{
 
     @Override
     public String post(String url, String serialized, String correlationId) {
-        Map<String,String> headersMap = createHeaderMap(correlationId, tokenInitializer.getToken());
+        Map<String,String> headersMap = createHeaderMap(correlationId, obtainTokenStrategy.getToken());
         return ResponseUtils.getEntity(httpClient.post(url, serialized, headersMap));
     }
 
@@ -48,7 +53,7 @@ public class DefaultSecureHttpClient implements SecureHttpClient{
 
     @Override
     public String put(String url, String serialized, String correlationId) {
-        Map<String,String> headersMap = createHeaderMap(correlationId, tokenInitializer.getToken());
+        Map<String,String> headersMap = createHeaderMap(correlationId, obtainTokenStrategy.getToken());
         return ResponseUtils.getEntity(httpClient.put(url, serialized, headersMap));
     }
 
@@ -59,7 +64,7 @@ public class DefaultSecureHttpClient implements SecureHttpClient{
 
     @Override
     public String delete(String url, String correlationId) {
-        Map<String,String> headersMap = createHeaderMap(correlationId, tokenInitializer.getToken());
+        Map<String,String> headersMap = createHeaderMap(correlationId, obtainTokenStrategy.getToken());
         return ResponseUtils.getEntity(httpClient.delete(url, headersMap));
     }
 
