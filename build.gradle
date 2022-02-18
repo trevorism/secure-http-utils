@@ -2,11 +2,11 @@ buildscript {
     repositories {
         mavenCentral()
         maven {
-            url uri("http://trevorism-build.eastus.cloudapp.azure.com/nexus/repository/maven-releases")
+            url uri("https://trevorism-build.eastus.cloudapp.azure.com/nexus/repository/maven-releases")
         }
     }
     dependencies {
-        classpath 'com.trevorism:gradle-release-plugin:0.4.0'
+        classpath 'com.trevorism:gradle-release-plugin:0.5.0'
     }
 }
 
@@ -21,17 +21,17 @@ apply plugin: "com.trevorism.gradle.release"
 repositories {
 	mavenCentral()
     maven {
-        url uri("http://trevorism-build.eastus.cloudapp.azure.com/nexus/repository/maven-releases")
+        url uri("https://trevorism-build.eastus.cloudapp.azure.com/nexus/repository/maven-releases")
     }
 }
 
 dependencies {
-    api 'com.trevorism:http-utils:1.1.0'
+    api 'com.trevorism:http-utils:1.2.0'
     api 'com.trevorism:secure-utils:3.4.0'
     api 'jakarta.ws.rs:jakarta.ws.rs-api:2.1.6'
-    implementation 'com.google.code.gson:gson:2.8.6'
-    testImplementation 'org.codehaus.groovy:groovy-all:2.5.8'
-    testImplementation 'junit:junit:4.12'
+    implementation 'com.google.code.gson:gson:2.9.0'
+    testImplementation 'org.codehaus.groovy:groovy-all:2.5.15'
+    testImplementation 'junit:junit:4.13.2'
 }
 
 check.dependsOn "jacocoTestReport"
