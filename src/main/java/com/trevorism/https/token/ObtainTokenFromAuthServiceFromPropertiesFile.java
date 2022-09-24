@@ -1,5 +1,6 @@
 package com.trevorism.https.token;
 
+import com.trevorism.secure.ClasspathBasedPropertiesProvider;
 import com.trevorism.secure.PropertiesProvider;
 
 public class ObtainTokenFromAuthServiceFromPropertiesFile extends ObtainTokenFromAuthService{
@@ -11,7 +12,7 @@ public class ObtainTokenFromAuthServiceFromPropertiesFile extends ObtainTokenFro
     }
 
     public ObtainTokenFromAuthServiceFromPropertiesFile(String propertiesFileName) {
-        PropertiesProvider propertiesProvider = new PropertiesProvider(propertiesFileName);
+        PropertiesProvider propertiesProvider = new ClasspathBasedPropertiesProvider(propertiesFileName);
         setClientId(propertiesProvider.getProperty(CLIENT_ID));
         setClientSecret(propertiesProvider.getProperty(CLIENT_SECRET));
     }

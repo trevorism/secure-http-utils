@@ -1,5 +1,6 @@
 package com.trevorism.https.token;
 
+import com.trevorism.secure.ClasspathBasedPropertiesProvider;
 import com.trevorism.secure.PropertiesProvider;
 
 public class ObtainTokenFromPropertiesFile implements ObtainTokenStrategy {
@@ -17,7 +18,7 @@ public class ObtainTokenFromPropertiesFile implements ObtainTokenStrategy {
     }
 
     public ObtainTokenFromPropertiesFile(String fileName, String propertyName) {
-        this.propertiesProvider = new PropertiesProvider(fileName);
+        this.propertiesProvider = new ClasspathBasedPropertiesProvider(fileName);
         this.propertyName = propertyName;
     }
 
