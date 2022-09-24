@@ -8,5 +8,5 @@ Upgraded http-utils with HTTP PATCH, adding here.
 
 # 0.7.0
 
-Initial implementation combining http-utls and secure-utils
+Initial implementation combining http-utils and secure-utils
 
