@@ -7,19 +7,16 @@ import com.trevorism.http.JsonHttpClient;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class ObtainTokenFromAuthService implements ObtainTokenStrategy {
+public abstract class ObtainTokenFromAuthService implements ObtainTokenStrategy {
 
     private static final int FIFTEEN_MINUTES_MILLIS = 1000 * 60 * 15;
     private static final String TOKEN_ENDPOINT = "https://auth.trevorism.com/token";
 
     private final Timer timer;
     private final Gson gson;
+    private final HttpClient httpClient;
 
     private String token;
-
-    private final HttpClient httpClient;
-    private String clientId;
-    private String clientSecret;
 
     public ObtainTokenFromAuthService() {
         this.httpClient = new JsonHttpClient();
@@ -36,6 +33,9 @@ public class ObtainTokenFromAuthService implements ObtainTokenStrategy {
     }
 
     private String fetchToken() {
+        String clientId = getClientId();
+        String clientSecret = getClientSecret();
+
         if(clientId == null || clientSecret == null){
             throw new InvalidTokenCredentialsException();
         }
@@ -50,16 +50,10 @@ public class ObtainTokenFromAuthService implements ObtainTokenStrategy {
         return result;
     }
 
-    public void setClientId(String clientId) {
-        this.clientId = clientId;
-    }
-
-    public void setClientSecret(String clientSecret) {
-        this.clientSecret = clientSecret;
-    }
+    protected abstract String getClientId();
+    protected abstract String getClientSecret();
 
     private class ExpireToken extends TimerTask {
-
         @Override
         public void run() {
             token = null;

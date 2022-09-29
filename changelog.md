@@ -1,3 +1,7 @@
+# 1.0.0
+
+Upgrading to 4.0.0 secure utils, uses lazy loading of secrets.
+
 # 0.9.0
 
 Moving to github actions/packages.

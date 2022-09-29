@@ -6,15 +6,13 @@ class ObtainTokenFromAuthServiceTest {
 
     @Test(expected = InvalidTokenCredentialsException)
     void testGetTokenWithoutClientIdAndPassword() {
-        ObtainTokenFromAuthService obtainTokenFromAuthService = new ObtainTokenFromAuthService()
+        ObtainTokenFromAuthService obtainTokenFromAuthService = new ObtainTokenFromAuthServiceFromParameter(null, null)
         assert obtainTokenFromAuthService.getToken()
     }
 
     @Test(expected = InvalidTokenCredentialsException)
     void testGetTokenWithBadClientIdAndPassword() {
-        ObtainTokenFromAuthService obtainTokenFromAuthService = new ObtainTokenFromAuthService()
-        obtainTokenFromAuthService.clientId = "badClientId"
-        obtainTokenFromAuthService.clientSecret = "badClientSecret"
+        ObtainTokenFromAuthService obtainTokenFromAuthService = new ObtainTokenFromAuthServiceFromParameter("badClientId", "badClientSecret")
         assert obtainTokenFromAuthService.getToken()
     }
 }
