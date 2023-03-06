@@ -118,7 +118,7 @@ public class SecureHttpClientBase implements SecureHttpClient {
 
     private static Map<String, String> createHeaderMap(String correlationId, String token) {
         Map<String, String> headersMap = new HashMap<>();
-        if (!correlationId.isEmpty())
+        if (correlationId != null && !correlationId.isEmpty())
             headersMap.put(SecureHttpClient.CORRELATION_ID_HEADER_KEY, correlationId);
         headersMap.put(AUTHORIZATION, BEARER_ + token);
         return headersMap;
