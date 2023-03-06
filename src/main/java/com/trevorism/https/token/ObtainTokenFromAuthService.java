@@ -2,8 +2,6 @@ package com.trevorism.https.token;
 
 import com.google.gson.Gson;
 import com.trevorism.http.HttpClient;
-import com.trevorism.http.JsonHttpClient;
-
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -14,12 +12,11 @@ public abstract class ObtainTokenFromAuthService implements ObtainTokenStrategy 
 
     private final Timer timer;
     private final Gson gson;
-    private final HttpClient httpClient;
+    private HttpClient httpClient;
 
     private String token;
 
     public ObtainTokenFromAuthService() {
-        this.httpClient = new JsonHttpClient();
         this.gson = new Gson();
         this.timer = new Timer("token", true);
     }
@@ -30,6 +27,11 @@ public abstract class ObtainTokenFromAuthService implements ObtainTokenStrategy 
             token = fetchToken();
         }
         return token;
+    }
+
+    @Override
+    public void setHttpClient(HttpClient client) {
+        this.httpClient = client;
     }
 
     private String fetchToken() {
@@ -43,11 +45,12 @@ public abstract class ObtainTokenFromAuthService implements ObtainTokenStrategy 
         TokenRequest tokenRequest = new TokenRequest(clientId, clientSecret);
 
         String json = gson.toJson(tokenRequest);
-        String result = httpClient.post(TOKEN_ENDPOINT, json);
-        if (result == null || result.startsWith("<html>")) {
-            throw new InvalidTokenCredentialsException();
+        try {
+            String result = httpClient.post(TOKEN_ENDPOINT, json);
+            return result;
+        }catch(Exception e){
+            throw new InvalidTokenCredentialsException(e);
         }
-        return result;
     }
 
     protected abstract String getClientId();

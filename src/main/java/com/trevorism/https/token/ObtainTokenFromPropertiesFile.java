@@ -1,7 +1,8 @@
 package com.trevorism.https.token;
 
-import com.trevorism.secure.ClasspathBasedPropertiesProvider;
-import com.trevorism.secure.PropertiesProvider;
+import com.trevorism.ClasspathBasedPropertiesProvider;
+import com.trevorism.PropertiesProvider;
+import com.trevorism.http.HttpClient;
 
 public class ObtainTokenFromPropertiesFile implements ObtainTokenStrategy {
 
@@ -25,6 +26,11 @@ public class ObtainTokenFromPropertiesFile implements ObtainTokenStrategy {
     @Override
     public String getToken() {
         return propertiesProvider.getProperty(propertyName);
+    }
+
+    @Override
+    public void setHttpClient(HttpClient client) {
+        //not needed, other implementations may need a HttpClient
     }
 
 }
