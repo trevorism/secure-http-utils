@@ -1,3 +1,7 @@
+# 2.1.0
+
+Upgrading to 2.1.0 http utils, which adds status code to the responses and exceptions for better error handling.
+
 # 2.0.0
 
 Upgrading to 5.0.0 secure utils, which removes Jersey specific code.
