@@ -8,10 +8,7 @@ import com.trevorism.https.token.ObtainTokenStrategy;
 import java.util.HashMap;
 import java.util.Map;
 
-public abstract class SecureHttpClientBase implements HttpClient {
-
-    public static String AUTHORIZATION = "Authorization";
-    public static String BEARER_ = "bearer ";
+public abstract class SecureHttpClientBase implements SecureHttpClient {
 
     private final HttpClient httpClient;
     private final ObtainTokenStrategy obtainTokenStrategy;
