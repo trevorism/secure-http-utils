@@ -8,7 +8,10 @@ import com.trevorism.https.token.ObtainTokenStrategy;
 import java.util.HashMap;
 import java.util.Map;
 
-public class SecureHttpClientBase implements SecureHttpClient {
+public abstract class SecureHttpClientBase implements HttpClient {
+
+    public static String AUTHORIZATION = "Authorization";
+    public static String BEARER_ = "bearer ";
 
     private final HttpClient httpClient;
     private final ObtainTokenStrategy obtainTokenStrategy;
@@ -24,25 +27,15 @@ public class SecureHttpClientBase implements SecureHttpClient {
     }
 
     @Override
-    public String get(String url) {
-        return get(url, "");
-    }
-
-    @Override
     public HeadersHttpResponse get(String url, Map<String, String> map) {
         return httpClient.get(url, map);
     }
 
     @Override
-    public String get(String url, String correlationId) {
-        Map<String, String> headersMap = createHeaderMap(correlationId, obtainTokenStrategy.getToken());
+    public String get(String url) {
+        Map<String, String> headersMap = createHeaderMap(obtainTokenStrategy.getToken());
         HeadersHttpResponse response = get(url, headersMap);
         return response.getValue();
-    }
-
-    @Override
-    public String post(String url, String serialized) {
-        return post(url, serialized, "");
     }
 
     @Override
@@ -51,15 +44,10 @@ public class SecureHttpClientBase implements SecureHttpClient {
     }
 
     @Override
-    public String post(String url, String serialized, String correlationId) {
-        Map<String, String> headersMap = createHeaderMap(correlationId, obtainTokenStrategy.getToken());
+    public String post(String url, String serialized) {
+        Map<String, String> headersMap = createHeaderMap(obtainTokenStrategy.getToken());
         HeadersHttpResponse response = post(url, serialized, headersMap);
         return response.getValue();
-    }
-
-    @Override
-    public String put(String url, String serialized) {
-        return put(url, serialized, "");
     }
 
     @Override
@@ -68,22 +56,17 @@ public class SecureHttpClientBase implements SecureHttpClient {
     }
 
     @Override
-    public String put(String url, String serialized, String correlationId) {
-        Map<String, String> headersMap = createHeaderMap(correlationId, obtainTokenStrategy.getToken());
+    public String put(String url, String serialized) {
+        Map<String, String> headersMap = createHeaderMap(obtainTokenStrategy.getToken());
         HeadersHttpResponse response = put(url, serialized, headersMap);
         return response.getValue();
     }
 
     @Override
-    public String patch(String url, String serialized, String correlationId) {
-        Map<String, String> headersMap = createHeaderMap(correlationId, obtainTokenStrategy.getToken());
+    public String patch(String url, String serialized) {
+        Map<String, String> headersMap = createHeaderMap(obtainTokenStrategy.getToken());
         HeadersHttpResponse response = patch(url, serialized, headersMap);
         return response.getValue();
-    }
-
-    @Override
-    public String patch(String url, String serialized) {
-        return patch(url, serialized, "");
     }
 
     @Override
@@ -92,18 +75,13 @@ public class SecureHttpClientBase implements SecureHttpClient {
     }
 
     @Override
-    public String delete(String url) {
-        return delete(url, "");
-    }
-
-    @Override
     public HeadersHttpResponse delete(String url, Map<String, String> map) {
         return httpClient.delete(url, map);
     }
 
     @Override
-    public String delete(String url, String correlationId) {
-        Map<String, String> headersMap = createHeaderMap(correlationId, obtainTokenStrategy.getToken());
+    public String delete(String url) {
+        Map<String, String> headersMap = createHeaderMap(obtainTokenStrategy.getToken());
         HeadersHttpResponse response = delete(url, headersMap);
         return response.getValue();
     }
@@ -116,10 +94,8 @@ public class SecureHttpClientBase implements SecureHttpClient {
         return httpClient;
     }
 
-    private static Map<String, String> createHeaderMap(String correlationId, String token) {
+    private static Map<String, String> createHeaderMap(String token) {
         Map<String, String> headersMap = new HashMap<>();
-        if (correlationId != null && !correlationId.isEmpty())
-            headersMap.put(SecureHttpClient.CORRELATION_ID_HEADER_KEY, correlationId);
         headersMap.put(AUTHORIZATION, BEARER_ + token);
         return headersMap;
     }

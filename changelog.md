@@ -1,3 +1,7 @@
+# 3.0.0
+
+Improve interface, removing correlation id since it is implicitly added by micronaut security utils
+
 # 2.1.0
 
 Upgrading to 2.1.0 http utils, which adds status code to the responses and exceptions for better error handling.
