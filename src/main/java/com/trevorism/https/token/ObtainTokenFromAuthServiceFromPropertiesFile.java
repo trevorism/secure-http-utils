@@ -2,7 +2,6 @@ package com.trevorism.https.token;
 
 import com.trevorism.ClasspathBasedPropertiesProvider;
 import com.trevorism.PropertiesProvider;
-import com.trevorism.http.HttpClient;
 
 public class ObtainTokenFromAuthServiceFromPropertiesFile extends ObtainTokenFromAuthService{
 

@@ -1,3 +1,7 @@
+# 3.1.0
+
+Update implementation names and allow extensible headers
+
 # 3.0.0
 
 Improve interface, removing correlation id since it is implicitly added by micronaut security utils

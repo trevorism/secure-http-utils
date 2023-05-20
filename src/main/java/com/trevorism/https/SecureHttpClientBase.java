@@ -30,7 +30,7 @@ public abstract class SecureHttpClientBase implements SecureHttpClient {
 
     @Override
     public String get(String url) {
-        Map<String, String> headersMap = createHeaderMap(obtainTokenStrategy.getToken());
+        Map<String, String> headersMap = createHeaderMap();
         HeadersHttpResponse response = get(url, headersMap);
         return response.getValue();
     }
@@ -42,7 +42,7 @@ public abstract class SecureHttpClientBase implements SecureHttpClient {
 
     @Override
     public String post(String url, String serialized) {
-        Map<String, String> headersMap = createHeaderMap(obtainTokenStrategy.getToken());
+        Map<String, String> headersMap = createHeaderMap();
         HeadersHttpResponse response = post(url, serialized, headersMap);
         return response.getValue();
     }
@@ -54,14 +54,14 @@ public abstract class SecureHttpClientBase implements SecureHttpClient {
 
     @Override
     public String put(String url, String serialized) {
-        Map<String, String> headersMap = createHeaderMap(obtainTokenStrategy.getToken());
+        Map<String, String> headersMap = createHeaderMap();
         HeadersHttpResponse response = put(url, serialized, headersMap);
         return response.getValue();
     }
 
     @Override
     public String patch(String url, String serialized) {
-        Map<String, String> headersMap = createHeaderMap(obtainTokenStrategy.getToken());
+        Map<String, String> headersMap = createHeaderMap();
         HeadersHttpResponse response = patch(url, serialized, headersMap);
         return response.getValue();
     }
@@ -78,7 +78,7 @@ public abstract class SecureHttpClientBase implements SecureHttpClient {
 
     @Override
     public String delete(String url) {
-        Map<String, String> headersMap = createHeaderMap(obtainTokenStrategy.getToken());
+        Map<String, String> headersMap = createHeaderMap();
         HeadersHttpResponse response = delete(url, headersMap);
         return response.getValue();
     }
@@ -91,9 +91,9 @@ public abstract class SecureHttpClientBase implements SecureHttpClient {
         return httpClient;
     }
 
-    private static Map<String, String> createHeaderMap(String token) {
+    protected Map<String, String> createHeaderMap() {
         Map<String, String> headersMap = new HashMap<>();
-        headersMap.put(AUTHORIZATION, BEARER_ + token);
+        headersMap.put(AUTHORIZATION, BEARER_ + obtainTokenStrategy.getToken());
         return headersMap;
     }
 }

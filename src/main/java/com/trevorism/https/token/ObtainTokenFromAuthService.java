@@ -46,8 +46,7 @@ public abstract class ObtainTokenFromAuthService implements ObtainTokenStrategy 
 
         String json = gson.toJson(tokenRequest);
         try {
-            String result = httpClient.post(TOKEN_ENDPOINT, json);
-            return result;
+            return httpClient.post(TOKEN_ENDPOINT, json);
         }catch(Exception e){
             throw new InvalidTokenCredentialsException(e);
         }

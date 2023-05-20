@@ -2,9 +2,9 @@ package com.trevorism.https;
 
 import com.trevorism.https.token.ObtainTokenFromAuthServiceFromPropertiesFile;
 
-public class DefaultSecureHttpClient extends SecureHttpClientBase {
+public class AppClientSecureHttpClient extends SecureHttpClientBase {
 
-    public DefaultSecureHttpClient() {
+    public AppClientSecureHttpClient() {
         super(new ObtainTokenFromAuthServiceFromPropertiesFile());
     }
 
