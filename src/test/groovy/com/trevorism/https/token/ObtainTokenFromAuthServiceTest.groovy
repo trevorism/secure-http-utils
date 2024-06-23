@@ -1,18 +1,21 @@
 package com.trevorism.https.token
 
-import org.junit.Test
+import org.junit.jupiter.api.Test
+import static org.junit.jupiter.api.Assertions.assertThrows
 
 class ObtainTokenFromAuthServiceTest {
 
-    @Test(expected = InvalidTokenCredentialsException)
+    @Test
     void testGetTokenWithoutClientIdAndPassword() {
         ObtainTokenFromAuthService obtainTokenFromAuthService = new ObtainTokenFromAuthServiceFromParameter(null, null)
-        assert obtainTokenFromAuthService.getToken()
+        assertThrows(InvalidTokenCredentialsException.class, () -> { obtainTokenFromAuthService.getToken() })
+
     }
 
-    @Test(expected = InvalidTokenCredentialsException)
+    @Test
     void testGetTokenWithBadClientIdAndPassword() {
         ObtainTokenFromAuthService obtainTokenFromAuthService = new ObtainTokenFromAuthServiceFromParameter("badClientId", "badClientSecret")
-        assert obtainTokenFromAuthService.getToken()
+        assertThrows(InvalidTokenCredentialsException.class, () -> { obtainTokenFromAuthService.getToken() })
+
     }
 }

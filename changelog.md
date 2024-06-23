@@ -1,3 +1,7 @@
+# 3.2.0
+
+Update dependencies. Capitalize Bearer.
+
 # 3.1.0
 
 Update implementation names and allow extensible headers

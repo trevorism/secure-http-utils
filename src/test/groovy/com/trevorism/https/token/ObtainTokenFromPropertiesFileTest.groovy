@@ -1,6 +1,9 @@
 package com.trevorism.https.token
 
-import org.junit.Test
+import org.junit.jupiter.api.Test
+
+import static org.junit.jupiter.api.Assertions.assertThrows
+
 
 class ObtainTokenFromPropertiesFileTest {
 
@@ -10,9 +13,10 @@ class ObtainTokenFromPropertiesFileTest {
         assert "asdf" == obtainTokenFromParameter.getToken()
     }
 
-    @Test(expected = Exception)
+    @Test
     void testGetTokenMissingFile() {
         ObtainTokenFromPropertiesFile obtainTokenFromParameter = new ObtainTokenFromPropertiesFile("blah.props")
-        assert "asdf" == obtainTokenFromParameter.getToken()
+        assertThrows(Exception.class, () -> { obtainTokenFromAuthService.getToken() })
+
     }
 }

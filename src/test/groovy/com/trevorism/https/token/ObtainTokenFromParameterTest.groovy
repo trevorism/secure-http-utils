@@ -1,6 +1,6 @@
 package com.trevorism.https.token
 
-import org.junit.Test
+import org.junit.jupiter.api.Test
 
 class ObtainTokenFromParameterTest {
     @Test
