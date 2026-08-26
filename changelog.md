@@ -1,3 +1,7 @@
+# 3.3.0
+
+Update dependencies, move to java 25. Rename InternalTokenSecureHttpClient -> LocalTokenSecureHttpClient.
+
 # 3.2.0
 
 Update dependencies. Capitalize Bearer.
